@@ -3,10 +3,8 @@ topdir=$1
 platform=$2
 compiler=$3
 
-export GENINT_BUILD=$topdir/genint-bundle/build
+export VIND_BUILD=$topdir/vind-bundle/build
 modules_setup_script=$topdir/modulefiles/setup_${platform}_${compiler}.sh
-
-[[ ! -d $GENINT_BUILD ]]&&mkdir -p $GENINT_BUILD
 
 if [ -f $modules_setup_script ]; then
     echo "Load modules with $modules_setup_script"

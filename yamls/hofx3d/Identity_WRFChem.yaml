@@ -22,7 +22,8 @@ geometry:
 
   groups:
   - variables:
-    - particulatematter2p5
+    - particulatematter2p5Insitu
+    - ozoneInsitu
     levels: 42
   model data:
     air_pressure_at_top_of_atmosphere_model: 5000
@@ -48,11 +49,14 @@ geometry:
          0.059, 0.028, 0.0]
     nLevels: 42
   alias:
-  - in code: particulatematter2p5
-    in file: PM2_5_dry
+  - in code: particulatematter2p5Insitu
+    in file: PM2_5_DRY
+  - in code: ozoneInsitu
+    in file: o3
 state:
   state variables:
-  - particulatematter2p5
+  - particulatematter2p5Insitu
+  - ozoneInsitu
   filepath: define_every_cycle
   netcdf extension: nc
   date: define_every_cycle

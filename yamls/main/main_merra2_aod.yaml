@@ -8,8 +8,8 @@ time:
   edate: 2024110506
   dateint: 6
 genint:
-  build: /glade/work/swei/Git/JEDI-METplus/genint-bundle/build 
-  jediexec: quenchxx_hofx3d.x
+  build: /glade/work/swei/projects/JEDI-ACE/vind-bundle/build
+  jediexec: vind_hofx3d.x
   jediyaml: hofx3d/AOD_MERRA2.yaml
   casename: aodobs_merra2
   simulated_varname: aerosolOpticalDepth
@@ -17,8 +17,8 @@ Data:
   input: 
     obs: '/glade/campaign/ncar/nmmm0072/Data/obs'
     bkg: '/glade/campaign/ncar/nmmm0072/Data/MERRA-2'
-    crtm: '/glade/work/swei/Git/JEDI-METplus/genint-bundle/build/crtm/test/testinput'
-  output: '/glade/work/swei/Git/JEDI-METplus/output'
+    crtm: '/glade/work/swei/projects/JEDI-ACE/genint-bundle/build/crtm/test/testinput'
+  output: '/glade/work/swei/projects/JEDI-ACE/output'
   obs_name_list: ['modis_terra_aod', 'modis_aqua_aod']
                   #, 'pace_aod',
                   #'viirs_aod_dt_npp', 'viirs_aod_dt_n20',

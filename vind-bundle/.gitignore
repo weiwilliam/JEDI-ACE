@@ -1,0 +1,41 @@
+# Ignore these files anywhere in the tree
+*DS_Store*
+*.[aox]
+*.so
+*.mod
+*.pyc
+*.v3breakpoints
+*.swp
+*.sublime-workspace
+*~
+git_branches_as_of_*
+
+# Ignore the contents of these directories
+build*/
+
+# ECMWF libraries
+atlas/
+eckit/
+fckit/
+ectrans/
+
+# GSIBEC
+gsibec/
+
+# JEDI core repos
+crtm/
+jedicmake/
+saber/
+iodaconv/
+ioda/
+vader/
+oops/
+ufo/
+
+# Additional repos
+vind/
+
+# Test data
+ioda-data/
+ufo-data/
+test-data-release/

@@ -11,7 +11,6 @@ import time
 from datetime import datetime, timedelta
 # Add metplus_ROOT to access METplus wrappers and utilities
 sys.path.insert(0, os.environ['metplus_ROOT'])
-import produtil.setup
 from metplus.util import metplus_check
 from metplus.util import pre_run_setup, run_metplus, post_run_cleanup
 from metplus import __version__ as metplus_version
@@ -81,7 +80,7 @@ else:
         else:
             shutil.rmtree(dir)
             os.makedirs(dir)
-    for fhr in verify_fhours_list: # conf['verify_fhours']:
+    for fhr in verify_fhours_list:
         subfhr_hofx = os.path.join(hofxout_path, 'f%.2i'%(fhr))
         os.makedirs(subfhr_hofx)
 
@@ -242,6 +241,8 @@ if run_jedihofx:
             cmd_str = job.execcmd+' '+fullexec+' '+wrkyaml 
             with open(wrkjobcard, 'a') as f:
                 f.write(cmd_str)
+
+            sys.exit()
         
             output = job.submit(wrkjobcard)
             jobid = output.split()[-1]
