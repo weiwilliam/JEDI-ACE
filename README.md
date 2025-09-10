@@ -20,7 +20,7 @@ Workflow to use VIND (Versatile Implementation for Native Data) interfaced with 
 * AirNow O<sub>3</sub> and PM<sub>2.5</sub>
 
 ## Clone the code
-Clone this repo into `<folder>` with the command below:
+Clone this repo into `<folder>` with the command below: \
 `git clone https://github.com/weiwilliam/JEDI-ACE.git <folder>`
 
 ## Build VIND (VIND-bundle)
