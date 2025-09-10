@@ -13,7 +13,7 @@ Workflow to use VIND (Versatile Implementation for Native Data) interfaced with 
 * Regular Lon-Lat: MERRA-2
 
 ## Tested measurements
-* TropOMI NO<sub>2</sub> and CO
+* TROPOMI NO<sub>2</sub> and CO
 * AOD from MODIS, VIIRS, OCI (PACE), AERONET
 * TEMPO NO<sub>2</sub>, CO
 * PANDORA NO<sub>2</sub>
