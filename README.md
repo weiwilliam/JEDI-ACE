@@ -1,9 +1,5 @@
-# JEDI-METplus
-Workflow to use VIND interface JEDI components and METplus for constituents model evaluation.
-
-## Clone the code
-Clone this repo recusively with the command below
-`git clone https://github.com/weiwilliam/JEDI-METplus.git <folder>`
+# JEDI-ACE
+Workflow to use VIND (Versatile Interface for Native Data) interfaced with the JEDI components and METplus for Atmospheric Composition Evaluation (ACE).
 
 ## Supported platforms
 * Platforms with JCSDA spack-stack package.
@@ -21,13 +17,9 @@ Clone this repo recusively with the command below
 * PANDORA NO2
 * AirNow O3 and PM2.5
 
-## Use of this interface
-* Prerequisites: observation files in IODA format and model outputs in NetCDF (GRIB2 may be supported later).
-1. Create Python venv under your repo, `source ush/setup.sh </repo/path> <platform> <compiler>`
-2. Based on your application, update the main yaml file under yamls/main and the hofx3d yaml file from yamls/hofx3d.
-   <e.g., evaluate wrf-chem trace gas, use `main/main_wrfchem.yaml` and `hofx3d/hofx3d_lambertCC.yaml`>
-3. Update the main and hofx3d yaml files as needed. Check README.md under `yamls/<main, hofx3d>` for details.
-4. Execute `pyscripts/genint_vrfy.py <main yaml>`
+## Clone the code
+Clone this repo into <folder> with the command below:
+`git clone https://github.com/weiwilliam/JEDI-METplus.git <folder>`
 
 ## Build VIND (VIND-bundle)
 1. Create the `<repo>/genint-bundle/build` folder
@@ -49,6 +41,22 @@ Clone this repo recusively with the command below
 1. Update `GENINT_BUILD` in `ush/setup.sh` to `/work2/noaa/jcsda/shihwei/git/caliop_opr/genint-bundle/build`
 2. `source ush/setup.sh <your/repo/path> orion gnu`\
    It will create venv for you and point your executables to my build.
+
+
+## Use of this interface
+* Prerequisites: observation files in IODA format and model outputs in NetCDF (GRIB2 may be supported later).
+
+1. Create Python venv under the cloned repo by running:
+ `source ush/setup.sh </repo/path> <platform> <compiler>`
+
+  options currently available:
+  platform: `derecho` or `orion`
+  compilers: `gnu, `intel`, `oneapo` for `derecho` and `gnu` for `orion`
+
+2. `yamls/main` and `yamls/hofx3d` include examples of input YAML files for different models (e.g. merra2, wrfchem) and different observations (e.g. AOD, tracegas). For example to evaluate wrf-chem trace gas you can use `main/main_wrfchem.yaml` and `hofx3d/hofx3d_lambertCC.yaml`. `README.md` under `yamls/<main, hofx3d>` provides more details. Modify or add your own YAML based on your application
+
+3. Run your experiment by executing `pyscripts/genint_vrfy.py <main yaml>`
+
 
 ## Preprocesses for use case of WRF
 1. Create air pressure and potential temperature:\
