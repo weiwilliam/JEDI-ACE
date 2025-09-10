@@ -7,7 +7,7 @@ time:
   sdate: 2024082419
   edate: 2024082419
   dateint: 1 
-genint:
+vind:
   build:  /glade/work/swei/projects/JEDI-ACE/vind-bundle/build 
   jediexec: vind_hofx3d.x
   jediyaml: hofx3d/TraceGas_WRFChem.yaml
@@ -29,7 +29,7 @@ Data:
   bkg_init_cyc: ['00']
 jobconf:
   platform: derecho
-  jobname: qxxgenint_wrfchem
+  jobname: vindhofx3d_wrfchem
   n_node: 1
   n_task: 1
   account: ualb0052

@@ -7,8 +7,8 @@ time:
   sdate: 2023100200
   edate: 2023100200
   dateint: 6
-genint:
-  build: /work2/noaa/jcsda/shihwei/git/caliop_opr/genint-bundle/build
+vind:
+  build: /work2/noaa/jcsda/shihwei/git/caliop_opr/vind-bundle/build
   jediexec: quenchxx_hofx3d.x
   jediyaml: hofx3d/AOD_gcafs_127.yaml
   casename: test_gcafs
@@ -28,7 +28,7 @@ Data:
   bkg_init_cyc: ['00', '06', '12', '18']
 jobconf:
   platform: orion 
-  jobname: qxxgenint_gcafs
+  jobname: vindhofx3d_gcafs
   n_node: 1
   n_task: 32
   walltime: '0:30:00'

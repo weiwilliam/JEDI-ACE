@@ -7,9 +7,9 @@ time:
   sdate: 2023060419
   edate: 2023060419
   dateint: 1
-genint:
-  build: /glade/work/swei/Git/JEDI-METplus/genint-bundle/build
-  jediexec: quenchxx_hofx3d.x
+vind:
+  build: /glade/work/swei/projects/JEDI-ACE/vind-bundle/build
+  jediexec: vind_hofx3d.x
   jediyaml: hofx3d/AOD_WRFChem.yaml
   casename: test_wrfchem_aod
   simulated_varname: aerosolOpticalDepth
@@ -17,8 +17,8 @@ Data:
   input: 
     obs: '/glade/derecho/scratch/swei/Dataset/input/obs/reu-ires'
     bkg: '/glade/derecho/scratch/swei/Dataset/input/bkg/wxaq'
-    crtm: '/glade/work/swei/Git/JEDI-METplus/genint-bundle/build/crtm/test/testinput'
-  output: '/glade/work/swei/Git/JEDI-METplus/output'
+    crtm: '/glade/work/swei/projects/JEDI-ACE/vind-bundle/build/crtm/test/testinput'
+  output: '/glade/work/swei/projects/JEDI-ACE/output'
   obs_name_list: ['viirs_aod_dt_n20-ryan', 'viirs_aod_db_n20-ryan']
   obs_sensor_list: ['v.viirs-m_j1', 'v.viirs-m_j1']
   obs_template: '{obs_name}/{filetype}.{obs_name}.%Y%m%d%H.nc4'
@@ -33,7 +33,7 @@ metplus:
   submit: False
 jobconf:
   platform: derecho
-  jobname: qxxgenint_wrfchem
+  jobname: vindhofx3d_wrfchem
   n_node: 1
   n_task: 1
   walltime: '0:30:00'

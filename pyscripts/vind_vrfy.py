@@ -28,11 +28,11 @@ restart = conf['restart']
 timeconf = conf['time']
 metconf = conf['metplus']
 jobconf = conf['jobconf']
-genintconf = conf['genint']
+vindconf = conf['vind']
 dataconf = conf['Data']
 
 # Create work and output folders
-casename = genintconf['casename']
+casename = vindconf['casename']
 srcpath = os.path.join(os.path.dirname(__file__), '..') 
 ymlpath = os.path.join(srcpath, 'yamls')
 wrkpath = os.path.join(srcpath, 'workdir')
@@ -111,7 +111,7 @@ if run_jedihofx:
     job = setup_job(jobconf)
     in_jobhead = os.path.join(srcpath, 'etc', job.header)
     
-    fullexec = os.path.join(genintconf['build'], 'bin', genintconf['jediexec'])
+    fullexec = os.path.join(vindconf['build'], 'bin', vindconf['jediexec'])
     wrkjobcard = os.path.join(wrkpath, 'runscript')
     wrkyaml = os.path.join(wrkpath, 'running.yaml')
 
@@ -154,8 +154,8 @@ if run_jedihofx:
                 continue
             print('Processing f%.2i valid at %s' % (fhr, cdate_str1))
     
-            # prepare the runtime yaml file for genint_hofx3d
-            yaml_file = os.path.join(ymlpath, genintconf['jediyaml'])
+            # prepare the runtime yaml file for vind_hofx3d
+            yaml_file = os.path.join(ymlpath, vindconf['jediyaml'])
             conf_temp = yaml.load(open(yaml_file), Loader=yaml.FullLoader)
     
             logfile = os.path.join(logpath, 'runlog.%s_f%.2i' % (init_dstr, fhr))
@@ -191,7 +191,7 @@ if run_jedihofx:
                 if ds.Location.size==0:
                     print(f'No observation available at {cdate_str1}')
                 else:
-                    if any(word in genintconf['simulated_varname'] for word in ['Column', 'Total']):
+                    if any(word in vindconf['simulated_varname'] for word in ['Column', 'Total']):
                         columnRetrieval = True
                         ret_nlev = ds.Layer.size
                 ds.close()
@@ -207,18 +207,18 @@ if run_jedihofx:
                 hofx_list.append(obsoutfile)
 
                 subobs_conf = yaml.load(open(observer_yaml_tmpl), Loader=yaml.FullLoader)
-                subobs_conf['obs space']['name'] = f"{obsname}_{genintconf['simulated_varname']}"
+                subobs_conf['obs space']['name'] = f"{obsname}_{vindconf['simulated_varname']}"
                 subobs_conf['obs space']['obsdatain']['engine']['obsfile'] = obsinfile
                 subobs_conf['obs space']['obsdataout']['engine']['obsfile'] = obsoutfile
-                if genintconf['simulated_varname'] == 'aerosolOpticalDepth':
+                if vindconf['simulated_varname'] == 'aerosolOpticalDepth':
                     subobs_conf['obs operator']['obs options']['Sensor_ID'] = sensor
                 else:
-                    subobs_conf['obs space']['simulated variables'] = [genintconf['simulated_varname']]
+                    subobs_conf['obs space']['simulated variables'] = [vindconf['simulated_varname']]
                     if columnRetrieval:
                         subobs_conf['obs operator']['nlayers_retrieval'] = ret_nlev
-                        subobs_conf['obs operator']['tracer variables'] = [genintconf['tracer_name']]
+                        subobs_conf['obs operator']['tracer variables'] = [vindconf['tracer_name']]
                     else:
-                        subobs_conf['obs operator']['variables'] = [genintconf['simulated_varname']]
+                        subobs_conf['obs operator']['variables'] = [vindconf['simulated_varname']]
 
                 if 'obs filters' in subobs_conf:
                     for filterconf in subobs_conf['obs filters']:
@@ -241,8 +241,6 @@ if run_jedihofx:
             cmd_str = job.execcmd+' '+fullexec+' '+wrkyaml 
             with open(wrkjobcard, 'a') as f:
                 f.write(cmd_str)
-
-            sys.exit()
         
             output = job.submit(wrkjobcard)
             jobid = output.split()[-1]

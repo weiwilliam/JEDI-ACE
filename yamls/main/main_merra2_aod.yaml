@@ -7,7 +7,7 @@ time:
   sdate: 2024110506
   edate: 2024110506
   dateint: 6
-genint:
+vind:
   build: /glade/work/swei/projects/JEDI-ACE/vind-bundle/build
   jediexec: vind_hofx3d.x
   jediyaml: hofx3d/AOD_MERRA2.yaml
@@ -17,7 +17,7 @@ Data:
   input: 
     obs: '/glade/campaign/ncar/nmmm0072/Data/obs'
     bkg: '/glade/campaign/ncar/nmmm0072/Data/MERRA-2'
-    crtm: '/glade/work/swei/projects/JEDI-ACE/genint-bundle/build/crtm/test/testinput'
+    crtm: '/glade/work/swei/projects/JEDI-ACE/vind-bundle/build/crtm/test/testinput'
   output: '/glade/work/swei/projects/JEDI-ACE/output'
   obs_name_list: ['modis_terra_aod', 'modis_aqua_aod']
                   #, 'pace_aod',
@@ -34,7 +34,7 @@ Data:
   bkg_init_cyc: ['00', '06', '12', '18']
 jobconf:
   platform: derecho
-  jobname: qxxgenint_merra2
+  jobname: vindhofx3d_merra2
   n_node: 1
   n_task: 128
   walltime: '0:10:00'
