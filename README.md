@@ -1,5 +1,6 @@
 # JEDI-ACE
-Workflow to use VIND (Versatile Interface for Native Data) interfaced with the JEDI components and METplus for Atmospheric Composition Evaluation (ACE).
+Workflow to use VIND (Versatile Implementation for Native Data) interfaced with the JEDI components and METplus for Atmospheric Composition Evaluation (ACE).\
+[VIND repo](https://github.com/benjaminmenetrier/vind)
 
 ## Supported platforms
 * Platforms with JCSDA spack-stack package.
