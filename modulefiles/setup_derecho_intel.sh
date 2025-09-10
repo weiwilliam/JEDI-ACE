@@ -19,5 +19,5 @@ module load ewok-env
 module load metplus
 
 # See README.md
-export LD_LIBRARY_PATH="${GENINT_BUILD}/lib:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${VIND_BUILD}/lib:${LD_LIBRARY_PATH}"
 
