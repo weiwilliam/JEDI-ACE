@@ -25,7 +25,7 @@ Clone this repo into `<folder>` with the command below: \
 
 ## Build VIND (VIND-bundle)
 1. Create the `<repo>/vind-bundle/build` folder
-2. Create virtual python env `<repo>/venv` if you do not have one.
+2. Create virtual python env `<repo>/venv` if you do not have one. \
    `source ush/setup.sh <repo path> <platform> <compiler>`
 3. `cd <repo>/vind-bundle/build`
 4. `ecbuild <path/to/vind-bundle>`
@@ -37,7 +37,7 @@ Derecho (oneapi): `/glade/work/swei/projects/JEDI-ACE/vind-bundle/build` \
 Orion (gnu): `/work2/noaa/jcsda/shihwei/git/caliop_opr/genint-bundle/build` (older version)
 1. Update `VIND_BUILD` in `ush/setup.sh` to `/glade/work/swei/projects/JEDI-ACE/vind-bundle/build`
 2. `source ush/setup.sh <your/repo/path> <platform> <compiler>`\
-   It will create venv for you and point your executables to my build. \
+   It will create venv for you and point your executables to my build.
 * It may encounter permission issue
 
 ## Use of this interface
