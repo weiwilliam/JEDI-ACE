@@ -23,7 +23,7 @@ def get_dates(sdate, edate, hint):
     return dates
 
 
-def set_size(w,h, ax=None, l=None, r=None, t=None, b=None):
+def set_size(w, h, ax=None, l=None, r=None, t=None, b=None):
     """
       Control the axes location
         w, h: width, height in inches
