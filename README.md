@@ -13,19 +13,19 @@ Workflow to use VIND (Versatile Implementation for Native Data) interfaced with 
 * Regular Lon-Lat: MERRA-2
 
 ## Tested measurements
-* TropOMI NO<sub>2</sub> and CO
+* TROPOMI NO<sub>2</sub> and CO
 * AOD from MODIS, VIIRS, OCI (PACE), AERONET
 * TEMPO NO<sub>2</sub>, CO
 * PANDORA NO<sub>2</sub>
 * AirNow O<sub>3</sub> and PM<sub>2.5</sub>
 
 ## Clone the code
-Clone this repo into `<folder>` with the command below:
+Clone this repo into `<folder>` with the command below: \
 `git clone https://github.com/weiwilliam/JEDI-ACE.git <folder>`
 
 ## Build VIND (VIND-bundle)
 1. Create the `<repo>/vind-bundle/build` folder
-2. Create virtual python env `<repo>/venv` if you do not have one.
+2. Create virtual python env `<repo>/venv` if you do not have one. \
    `source ush/setup.sh <repo path> <platform> <compiler>`
 3. `cd <repo>/vind-bundle/build`
 4. `ecbuild <path/to/vind-bundle>`
@@ -37,7 +37,7 @@ Derecho (oneapi): `/glade/work/swei/projects/JEDI-ACE/vind-bundle/build` \
 Orion (gnu): `/work2/noaa/jcsda/shihwei/git/caliop_opr/genint-bundle/build` (older version)
 1. Update `VIND_BUILD` in `ush/setup.sh` to `/glade/work/swei/projects/JEDI-ACE/vind-bundle/build`
 2. `source ush/setup.sh <your/repo/path> <platform> <compiler>`\
-   It will create venv for you and point your executables to my build. \
+   It will create venv for you and point your executables to my build.
 * It may encounter permission issue
 
 ## Use of this interface
@@ -69,6 +69,9 @@ Options currently available:
 3. Use `P_HYD` to represent `air_pressure`.\
    The `PSFC` is a diagnostic variable derived through hydrostatic function, so the `air_pressure_levels` based on akbk, ptop, and PSFC are more close to hydrostatic.
    It may cause half level pressure from `PB+P` is not between two adjacent full level.
+4. To get ak and bk values from wrfout, \
+    ak = C4F + P<sub>top</sub> - C3F * P<sub>top</sub> \
+    bk = C3F
 
 ## Reference links
 UFO operators: [JEDI document/UFO](https://jointcenterforsatellitedataassimilation-jedi-docs.readthedocs-hosted.com/en/latest/inside/jedi-components/ufo/index.html)

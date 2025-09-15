@@ -45,8 +45,7 @@ geometry:
     - surface_pressure
     levels: 1
   model data:
-    base_air_potential_temperature: 290
-    air_pressure_at_top_of_atmosphere_model: 50
+    air_pressure_at_top_of_atmosphere_model: 5000
     sigma_pressure_hybrid_coordinate_a_coefficient: [
          0.000e+00, 5.000e-02, 2.000e-01, 4.000e-01, 7.500e-01,
          1.250e+00, 1.850e+00, 2.550e+00, 3.400e+00, 4.350e+00,
@@ -122,8 +121,6 @@ observations:
       tracer variables:
       - volume_mixing_ratio_of_no2
 
-    obs error:
-      covariance model: diagonal
     #obs filters:
     #  - filter: Domain Check
     #    where:
@@ -138,10 +135,11 @@ observations:
 ```
 
 ### Notes for each section
-* `geometry:` WRF-Chem projection information needs to be provided here, the existing information is the single domain 4km over NYS.
+* `geometry:` Projection information needs to be provided in this section.
+  * Check other hofx3d YAML files for examples.
 * `groups:`
   * `variables:` need to list all the variables used during whole process
-  * `model data:` the additional information (static) to be provided into HofX run
+  * `model data:` the additional information (static) to be provided into hofx3d application
   * `alias:` the variable name mapping between I/O (in_file) and JEDI (in_code)
 * `levels are top down:` false will flip GeoVals to top-down order
 * `state:`

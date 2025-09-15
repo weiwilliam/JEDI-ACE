@@ -12,7 +12,8 @@ geometry:
       units : "degrees"
       west: -180.
   halo: 1
-  latitude south to north: true
+  io:
+    latitude south to north: true
   groups:
   - variables:
     - mass_fraction_of_dust001_in_air
