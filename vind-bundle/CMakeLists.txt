@@ -4,7 +4,7 @@
 cmake_minimum_required( VERSION 3.12 FATAL_ERROR )
 
 find_package( ecbuild 3.6 REQUIRED HINTS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../ecbuild)
-project( genint-bundle VERSION 1.0.0 LANGUAGES C CXX Fortran )
+project( vind-bundle VERSION 1.0.0 LANGUAGES C CXX Fortran )
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include( ecbuild_bundle )
 
@@ -95,12 +95,12 @@ if( ENABLE_OBS )
     ecbuild_bundle( PROJECT ioda-data GIT "https://github.com/jcsda-internal/ioda-data.git" BRANCH develop UPDATE )
     ecbuild_bundle( PROJECT ioda GIT "https://github.com/jcsda/ioda.git" BRANCH develop UPDATE )
     if( BUILD_IODA_CONVERTERS )
-        ecbuild_bundle( PROJECT iodaconv GIT "https://github.com/jcsda-internal/ioda-converters.git" BRANCH develop UPDATE )
+        ecbuild_bundle( PROJECT iodaconv GIT "https://github.com/jcsda-internal/ioda-converters.git" BRANCH feature/caliop_converters )
     endif()
 
     # ufo
     ecbuild_bundle( PROJECT ufo-data GIT "https://github.com/jcsda-internal/ufo-data.git" BRANCH develop UPDATE )
-    ecbuild_bundle( PROJECT ufo      GIT "https://github.com/jcsda-internal/ufo.git"      BRANCH feature/crtm_lidar UPDATE )
+    ecbuild_bundle( PROJECT ufo      GIT "https://github.com/jcsda/ufo.git"      BRANCH develop UPDATE )
 endif()
 
 ecbuild_bundle( PROJECT vind GIT "https://github.com/benjaminmenetrier/vind.git"  BRANCH develop UPDATE)

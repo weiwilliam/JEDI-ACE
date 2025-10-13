@@ -14,10 +14,6 @@ module load stack-oneapi/2024.2.1
 module load stack-cray-mpich/8.1.29
 module load stack-python/3.11.7
 
-module load jedi-fv3-env
-module load ewok-env
-module load metplus
-
 # See README.md
 export LD_LIBRARY_PATH="${VIND_BUILD}/lib:${LD_LIBRARY_PATH}"
 
