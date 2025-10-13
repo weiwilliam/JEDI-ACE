@@ -4,6 +4,10 @@ obs space:
     engine:
       type: H5File
       obsfile: define_every_cycle
+    obsgrouping:
+      group variables: [ "sequenceNumber" ]
+      sort variable: "pressure"
+      sort order: "ascending"
   obsdataout:
     engine:
       type: H5File
@@ -15,18 +19,23 @@ obs space:
   - extinctionCoefficient
   channels: 1,2
 obs operator:
-  name: LidarCRTM
-  nLidarLevels: 399
-  Absorbers:
-  - H2O
-  - O3
-  obs options:
-    Sensor_ID: v.pace_oci
-    EndianType: little_endian
-    CoefficientPath: Data/input/crtm/
-    SpcCoeff_Format: netCDF
-    TauCoeff_Format: netCDF
-    AerosolCoeff_File: AerosolCoeff.GOCART-GEOS5.nc4
-    AerosolCoeff_Format: netCDF
-    AerosolOption: aerosols_gocart_gefs
-    model units coeff: 1e9
+  name: Density Reduction
+  operator:
+    name: LidarCRTM
+    nLidarLevels: &nlev 399
+    Absorbers:
+    - H2O
+    - O3
+    obs options:
+      Sensor_ID: define_by_obs_sensor_list_in_mainyaml
+      EndianType: little_endian
+      CoefficientPath: Data/input/crtm/
+      SpcCoeff_Format: netCDF
+      TauCoeff_Format: netCDF
+      AerosolCoeff_File: AerosolCoeff.GOCART-GEOS5.nc4
+      AerosolCoeff_Format: netCDF
+      AerosolOption: aerosols_gocart_gefs
+      model units coeff: 1e9
+  algorithm:
+    name: simple
+    reduction factor: *nlev

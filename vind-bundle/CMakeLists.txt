@@ -75,32 +75,32 @@ endif()
 #ecbuild_bundle( PROJECT ectrans  GIT "https://github.com/ecmwf-ifs/ectrans.git" BRANCH main )
 #ecbuild_bundle( PROJECT atlas    GIT "https://github.com/ecmwf/atlas.git" TAG 0.31.1 )
 
-ecbuild_bundle( PROJECT oops     GIT "https://github.com/jcsda/oops.git"        TAG d41beb10)
-ecbuild_bundle( PROJECT vader    GIT "https://github.com/weiwilliam/vader.git"  TAG 9380e7b)
+ecbuild_bundle( PROJECT oops     GIT "https://github.com/jcsda/oops.git"        BRANCH develop UPDATE )
+ecbuild_bundle( PROJECT vader    GIT "https://github.com/weiwilliam/vader.git"  BRANCH develop UPDATE )
 
 if( ENABLE_SABER )
     # gsi
 #    ecbuild_bundle( PROJECT gsibec GIT "https://github.com/geos-esm/GSIbec.git" BRANCH develop UPDATE )
     # saber
-    ecbuild_bundle( PROJECT saber GIT "https://github.com/jcsda/saber.git" TAG 7434748d )
+    ecbuild_bundle( PROJECT saber GIT "https://github.com/jcsda/saber.git" BRANCH develop UPDATE )
 endif()
 
 if( ENABLE_CRTM )
     # crtm
-    ecbuild_bundle( PROJECT crtm GIT "https://github.com/JCSDA/CRTMv3.git" TAG c58cb49 )
+    ecbuild_bundle( PROJECT crtm GIT "https://github.com/JCSDA/CRTMv3.git" BRANCH develop UPDATE )
 endif()
 
 if( ENABLE_OBS )
     # ioda
-    ecbuild_bundle( PROJECT ioda-data GIT "https://github.com/jcsda-internal/ioda-data.git" TAG c6f8842 )
-    ecbuild_bundle( PROJECT ioda GIT "https://github.com/jcsda/ioda.git" TAG 0e57d052 )
+    ecbuild_bundle( PROJECT ioda-data GIT "https://github.com/jcsda-internal/ioda-data.git" BRANCH develop UPDATE )
+    ecbuild_bundle( PROJECT ioda GIT "https://github.com/jcsda/ioda.git" BRANCH develop UPDATE )
     if( BUILD_IODA_CONVERTERS )
-        ecbuild_bundle( PROJECT iodaconv GIT "https://github.com/jcsda-internal/ioda-converters.git" TAG 468eefa4)
+        ecbuild_bundle( PROJECT iodaconv GIT "https://github.com/jcsda-internal/ioda-converters.git" BRANCH develop UPDATE )
     endif()
 
     # ufo
-    ecbuild_bundle( PROJECT ufo-data GIT "https://github.com/jcsda-internal/ufo-data.git"   TAG 8b8f242)
-    ecbuild_bundle( PROJECT ufo      GIT "https://github.com/jcsda/ufo.git"                 TAG 6121bcd8)
+    ecbuild_bundle( PROJECT ufo-data GIT "https://github.com/jcsda-internal/ufo-data.git" BRANCH develop UPDATE )
+    ecbuild_bundle( PROJECT ufo      GIT "https://github.com/jcsda-internal/ufo.git"      BRANCH feature/crtm_lidar UPDATE )
 endif()
 
 ecbuild_bundle( PROJECT vind GIT "https://github.com/benjaminmenetrier/vind.git"  BRANCH develop UPDATE)

@@ -212,6 +212,8 @@ if run_jedihofx:
                 subobs_conf['obs space']['obsdataout']['engine']['obsfile'] = obsoutfile
                 if vindconf['simulated_varname'] == 'aerosolOpticalDepth':
                     subobs_conf['obs operator']['obs options']['Sensor_ID'] = sensor
+                elif vindconf['simulated_varname'] == 'extinctionCoefficient':
+                    subobs_conf['obs operator']['operator']['obs options']['Sensor_ID'] = sensor
                 else:
                     subobs_conf['obs space']['simulated variables'] = [vindconf['simulated_varname']]
                     if columnRetrieval:
