@@ -4,7 +4,7 @@
 cmake_minimum_required( VERSION 3.12 FATAL_ERROR )
 
 find_package( ecbuild 3.6 REQUIRED HINTS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../ecbuild)
-project( genint-bundle VERSION 1.0.0 LANGUAGES C CXX Fortran )
+project( vind-bundle VERSION 1.0.0 LANGUAGES C CXX Fortran )
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include( ecbuild_bundle )
 
