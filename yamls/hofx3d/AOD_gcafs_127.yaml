@@ -159,5 +159,15 @@ state:
 observations:
   get values:
     variable change:
+      vader custom cookbook:
+        air_pressure: ["AirPressure_A"]
+        air_pressure_levels: ["AirPressureAtInterface_A"]
+        relative_humidity: ["RelativeHumidity_A"]
+        total_water_mixing_ratio_wrt_dry_air: ["TotalWaterMixingRatioWrtDryAir_A"]
+        water_vapor_mixing_ratio_wrt_dry_air: ["WaterVaporMixingRatioWrtDryAir_C"]
+        water_vapor_mixing_ratio_wrt_moist_air_and_condensed_water: ["WaterVaporMixingRatioWrtWetAir_A"]
+        dlsvpdT: ["LogDerivativeSaturationVaporPressure_A"]
+        qsat: ["SaturationSpecificHumidity_A"]
+        svp: ["SaturationVaporPressure_A"]
       vader: true
   observers: observer/observer_tmp_gcafs.yaml
