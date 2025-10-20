@@ -42,6 +42,7 @@ jobconf:
   check_freq: 10
 metplus:
   met_conf_temp: StatAnalysis.conf_tmpl
+  variables: ['var1', 'var2']
   ioda2metmpr: ioda2metplusmpr.py 
   mask_by: 'ObsValue<1e6'
   submit: False
@@ -52,9 +53,12 @@ metplus:
 * `verbose:` True: print out more information
 * `verify_fhours:` List of verifying forecast hours
 * `time:`
-  * `state:` first cycle (10-digit)
-  * `edate:` last cycle (10-digit)
-  * `dateint:` interval of each cycle (in hour)
+  * `sdate:` first valid time (10-digit, YYYYMMDDHH)
+  * `edate:` last valid time (10-digit, YYYYMMDDHH)
+  * `dateint:` interval of each valid time (in hour) 
+
+Script will loop over `verify_fhours` to search forecast files that are available on each valid time derived from `sdate`, `edate`, and `dateint`.
+
 * `vind:`
   * `build:` build path of vind-bundle
   * `jediexec:` the executable to use
@@ -74,7 +78,7 @@ metplus:
   * `obs_template:` obs file template, will be parsed by cdate.strptime
   * `obs_window_length:` the time coverage of your observation.
   * `bkg_template:` bkg file template (please include any level with date info), will be parsed by cdate.strptime
-  * `bkg_init_cyc:` searching the files initialized from the listed cycles.
+  * `bkg_init_cyc:` searching the files initialized from the listed cycles (2-digit hours, e.g., 06).
 * `jobconf:`
   * `platform:` platform name: s4, derecho, orion, discover
   * `jobname:` jobname when it submitted
@@ -86,8 +90,8 @@ metplus:
   * `qos:` queue level, Derecho: premium, regular, or economy*
   * `check_freq:` check frequency for hofx step
 * `metplus:`
-  * `verify_fhours:` List of forecast hours for verification
-  * `met_conf_temp:` stat_analysis template
+  * `met_conf_temp:` stat_analysis template, StatAnalysis.CTC.conf_tmpl or StatAnalysis.SL1L2.conf_tmpl
+  * `variables`: a list of variables to evaluate with METplus, see `pyscripts/dictionaries.py` for setup of variable and threshold (for CTC).
   * `ioda2metmpr:` python script to read IODA hofx file and provide matched paired dataset to METplus for statistics calculation
   * `mask_by`: use the group of IODA to keep data points satisfied the condition for METplus calculation
   * `submit`: True or False to run METplus on compute node or local, if it is true, please include the jobconf yaml keys under metplus section.
