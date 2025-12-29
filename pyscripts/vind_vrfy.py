@@ -207,7 +207,8 @@ if run_jedihofx:
                 hofx_list.append(obsoutfile)
 
                 subobs_conf = yaml.load(open(observer_yaml_tmpl), Loader=yaml.FullLoader)
-                subobs_conf['obs space']['name'] = f"{obsname}_{vindconf['simulated_varname']}"
+                simulate_varname_string = "_".join(vindconf['simulated_varname'])
+                subobs_conf['obs space']['name'] = f"{obsname}_{simulate_varname_string}"
                 subobs_conf['obs space']['obsdatain']['engine']['obsfile'] = obsinfile
                 subobs_conf['obs space']['obsdataout']['engine']['obsfile'] = obsoutfile
                 if vindconf['simulated_varname'] == 'aerosolOpticalDepth':
@@ -215,12 +216,12 @@ if run_jedihofx:
                 elif vindconf['simulated_varname'] == 'extinctionCoefficient':
                     subobs_conf['obs operator']['operator']['obs options']['Sensor_ID'] = sensor
                 else:
-                    subobs_conf['obs space']['simulated variables'] = [vindconf['simulated_varname']]
+                    subobs_conf['obs space']['simulated variables'] = vindconf['simulated_varname']
                     if columnRetrieval:
                         subobs_conf['obs operator']['nlayers_retrieval'] = ret_nlev
                         subobs_conf['obs operator']['tracer variables'] = [vindconf['tracer_name']]
                     else:
-                        subobs_conf['obs operator']['variables'] = [vindconf['simulated_varname']]
+                        subobs_conf['obs operator']['variables'] = vindconf['simulated_varname']
 
                 if 'obs filters' in subobs_conf:
                     for filterconf in subobs_conf['obs filters']:
@@ -248,7 +249,7 @@ if run_jedihofx:
             jobid = output.split()[-1]
             if jobconf['check_freq'] != -1:
                 if jobconf['platform']=='derecho':
-                    pre_sleep_sec = max(30, int(jobconf['check_freq']/2))
+                    pre_sleep_sec = max(60, int(jobconf['check_freq']/2))
                     time.sleep(pre_sleep_sec)
                 status = 0
                 while status == 0:
@@ -308,11 +309,12 @@ if run_met_plus:
             with open(wk_statanalysis_conf, 'w') as file:
                 file.write(mp_confs)
             
-            # Running METplus
-            mp_jobcard = os.path.join(wrkpath, 'run_metplus.batch')
-            mp_logfile = os.path.join(logpath, 'runmp.%s_%s.log' %(str(timeconf['sdate']), str(timeconf['edate'])))
         
             if metconf['submit']:
+                # Running METplus
+                mp_jobcard = os.path.join(wrkpath, 'run_metplus.batch')
+                mp_logfile = os.path.join(logpath, 'runmp.%s_%s.log' %(str(timeconf['sdate']), str(timeconf['edate'])))
+
                 # Setup job confs    
                 mpjob = setup_job(metconf)
                 in_jobhead = os.path.join(srcpath, 'etc', mpjob.header)

@@ -116,10 +116,9 @@ class setup_job(object):
     def check(self, jobid):
         output = subprocess.run([self.search_cmd, self.search_arg, jobid], check=False, capture_output=True)
         stdout = output.stdout.decode('utf-8')
-        if jobid in stdout:
-            status = 0
+        status = output.returncode
+        if status == 0:
             print(stdout, flush=1)
         else:
-            status = 1
             print('JOB ID: '+jobid+' Finished', flush=1)
         return status
