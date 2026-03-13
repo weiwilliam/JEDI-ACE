@@ -60,16 +60,17 @@ Options currently available:
 3. Run your experiment by executing `pyscripts/vind_vrfy.py <main yaml>`
 
 ## Preprocesses for use case of WRF system
-1. Create air pressure and potential temperature:\
-   `ncap2 -O -s "air_potential_temperature=T+300" <wrfout> <new wrfout>`\
-   Create `air_potential_temperature` for JEDI application.   
-2. Cropping IODA file:\
+1. Create `air_potential_temperature` for JEDI application:\
+   `ncap2 -O -s "air_potential_temperature=T+300" <wrfout> <new wrfout>`
+2. Create o3_molpermol from o3 (ppmv) for JEDI application:\
+   `ncap2 -O -s "o3_molpermol=o3*1e-6" <wrfout> <new_wrfout>`  
+3. Cropping IODA file:\
    Use `pyscripts/get_wrfout_polygon.py` to create a polygon .csv file for your domain boundary.\
    Run `pyscripts/crop_iodafile.py -i <global/IODA/file> -o <WRF/domain/IODA/file> -p <WRF/domain/polygon/csv>`
-3. Use `P_HYD` to represent `air_pressure`.\
+4. Use `P_HYD` to represent `air_pressure`.\
    The `PSFC` is a diagnostic variable derived through hydrostatic function, so the `air_pressure_levels` based on akbk, ptop, and PSFC are more close to hydrostatic.
    It may cause half level pressure from `PB+P` is not between two adjacent full level.
-4. To get ak and bk values from wrfout, \
+5. To get ak and bk values from wrfout, \
     ak = C4F + P<sub>top</sub> - C3F * P<sub>top</sub> \
     bk = C3F
 
