@@ -13,3 +13,14 @@ obs space:
 obs operator:
   variables: define_in_mainyaml
   name: Identity
+# Uncomment the section below if you want to convert PM2.5 hofx from kg/m-3 to ug/m-3
+#obs filters:
+#  - filter: Variable Assignment
+#    assignments:
+#    - name: DerivedHofX/particulatematter2p5Surface
+#      type: float
+#      function:
+#        name: ObsFunction/LinearCombination
+#        options:
+#          variables: [HofX/particulatematter2p5Surface]
+#          coefs: [1e9]
