@@ -14,7 +14,7 @@ sys.path.insert(0, os.environ['metplus_ROOT'])
 from metplus.util import metplus_check
 from metplus.util import pre_run_setup, run_metplus, post_run_cleanup
 from metplus import __version__ as metplus_version
-from functions import setup_job, get_dates
+from functions import setup_job, get_dates, get_mpas_lonlat_list
 from dictionaries import jedivar_dict, epa_reg_dict
 
 # Load the configuration defined by main yaml file
@@ -30,6 +30,9 @@ metconf = conf['metplus']
 jobconf = conf['jobconf']
 vindconf = conf['vind']
 dataconf = conf['Data']
+if conf['mpas_infofiles']:
+    mpasinfo_conf = conf['mpas_infofiles']
+    use_mpasjedi = True
 
 # Create work and output folders
 casename = vindconf['casename']
@@ -81,7 +84,7 @@ else:
             shutil.rmtree(dir)
             os.makedirs(dir)
     for fhr in verify_fhours_list:
-        subfhr_hofx = os.path.join(hofxout_path, 'f%.2i'%(fhr))
+        subfhr_hofx = os.path.join(hofxout_path, f'f{fhr:02}')
         os.makedirs(subfhr_hofx)
 
 # Create workdir
@@ -91,8 +94,19 @@ if os.path.exists(wrkpath):
 for dir in [wrkpath, datapath, inpath]:
     os.makedirs(dir)
 os.symlink(outpath, wrkpath+'/Data/output')
-for wrksubdir in ['bkg','obs','crtm']:
-    os.symlink(dataconf['input'][wrksubdir], os.path.join(inpath, wrksubdir))
+for wrksubdir, srcdir in dataconf['input'].items():
+    os.symlink(srcdir, os.path.join(inpath, wrksubdir))
+if conf['mpas_infofiles']:
+    # for infodst, infosrc in conf['mpas_infofiles'].items():
+    #     if os.path.isdir(infosrc):
+    #         for name in os.listdir(infosrc):
+    #             src = os.path.join(infosrc, name)
+    #             dst = os.path.join(wrkpath, name)
+    #             if os.path.isfile(src):
+    #                 os.symlink(src, dst)
+    #     else:
+    #         os.symlink(infosrc, os.path.join(wrkpath, infodst))
+    xy_info = get_mpas_lonlat_list(conf['mpas_infofiles']['invariant.nc'], 'Cell')
 
 os.chdir(wrkpath)
 
@@ -174,6 +188,16 @@ if run_jedihofx:
                 fhr=fhr,
             ))
 
+            if use_mpasjedi:
+                # srcfile = f"{datapath}/input/bkg/{bkg_file}.{dataconf['bkg_extension']}"
+                # if 'diag' in bkg_file:
+                #      conf_temp['state']['filename'] = "diagnostics.nc"
+                
+                # if not os.path.exists(srcfile):
+                #     print(f"{srcfile} is not available for fcst={fhr}hr from {init_dstr}")
+                # else:
+                #     os.symlink(srcfile, os.path.join(wrkpath, conf_temp['state']['filename']))
+                conf_temp['geometry']['grid']['xy'] = xy_info
             conf_temp['state']['filepath'] = f"{datapath}/input/bkg/{bkg_file}"
             conf_temp['state']['netcdf extension'] = dataconf['bkg_extension']
             if not os.path.exists(f"{conf_temp['state']['filepath']}.{dataconf['bkg_extension']}"):
@@ -237,23 +261,27 @@ if run_jedihofx:
             with open(wrkyaml, 'w') as f:
                 yaml.dump(conf_temp, f, sort_keys=False) 
 
-            # Update jobcard
-            job.create_job(in_jobhdr=in_jobhead, jobcard=wrkjobcard, logfile=logfile)
-    
-            cmd_str = job.execcmd+' '+fullexec+' '+wrkyaml 
-            with open(wrkjobcard, 'a') as f:
-                f.write(cmd_str)
+            if jobconf['submit']:
+                # Update jobcard
+                job.create_job(in_jobhdr=in_jobhead, jobcard=wrkjobcard, logfile=logfile)
         
-            output = job.submit(wrkjobcard)
-            jobid = output.split()[-1]
-            if jobconf['check_freq'] != -1:
-                if jobconf['platform']=='derecho':
-                    pre_sleep_sec = max(30, int(jobconf['check_freq']/2))
-                    time.sleep(pre_sleep_sec)
-                status = 0
-                while status == 0:
-                    status = job.check(jobid)
-                    if status == 0: time.sleep(jobconf['check_freq'])
+                cmd_str = job.execcmd + ' ' + fullexec + ' ' + wrkyaml 
+                with open(wrkjobcard, 'a') as f:
+                    f.write(cmd_str)
+            
+                output = job.submit(wrkjobcard)
+                jobid = output.split()[-1]
+                if jobconf['check_freq'] != -1:
+                    if jobconf['platform']=='derecho':
+                        pre_sleep_sec = max(30, int(jobconf['check_freq']/2))
+                        time.sleep(pre_sleep_sec)
+                    status = 0
+                    while status == 0:
+                        status = job.check(jobid)
+                        if status == 0: time.sleep(jobconf['check_freq'])
+            else:
+                with open(logfile, "w") as logf:
+                    subprocess.run([job.execcmd, '-n', str(jobconf['n_task']), fullexec, wrkyaml], stdout=logf, stderr=subprocess.STDOUT)
     
             # Check the outputs
             for hofx_file in hofx_list:

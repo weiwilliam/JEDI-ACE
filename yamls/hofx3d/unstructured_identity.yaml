@@ -1,0 +1,30 @@
+time window:
+  begin: define_every_cycle
+  length: define_every_cycle
+geometry:
+  function space: NodeColumns
+  partitioner: "checkerboard"
+  grid:
+    type : "unstructured"
+    xy: define_based_on_mesh
+  levels are top down: false
+
+  groups:
+  - variables:
+    - particulatematter2p5Surface
+    levels: 1
+  alias:
+  - in code: particulatematter2p5Surface
+    in file: totPM25
+state:
+  state variables:
+  - particulatematter2p5Surface
+  filepath: define_every_cycle
+  netcdf extension: nc
+  date: define_every_cycle
+  check dimensions: false
+observations:
+  get values:
+    variable change:
+      vader: true
+  observers: observer/observer_identity.yaml

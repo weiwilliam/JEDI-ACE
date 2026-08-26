@@ -15,3 +15,4 @@ ulimit -v unlimited || true
 
 export VALIDATE_PARAMETERS=1
 
+cd $PBS_O_WORKDIR

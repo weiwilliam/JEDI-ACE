@@ -51,19 +51,30 @@ def set_area(areaname):
         minlon = -81.; maxlon = -70; minlat = 39.8; maxlat = 46.
     return minlon, maxlon, minlat, maxlat
 
+def get_mpas_lonlat_list(mpas_file, loc='Cell'):
+    import numpy as np
+    import xarray as xr
+    ds = xr.open_dataset(mpas_file)
+    lon = np.degrees(ds[f"lon{loc}"].values)   # MPAS stores radians
+    lat = np.degrees(ds[f"lat{loc}"].values)
+    ds.close()
+    return np.column_stack([lon, lat]).ravel().tolist()
+
 class setup_job(object):
 
     def __init__(self, conf):
+        self.submit = conf['submit']
         self.platform = conf['platform']
-        self.jobname = conf['jobname']
-        self.n_node = conf['n_node']
         self.n_task = conf['n_task']
-        self.walltime = conf['walltime']
-        self.account = conf['account']
-        self.partition = conf['partition']
-        self.qos = conf['qos']
-        self.memory = conf['memory']
-        self.check_freq = conf['check_freq']
+        if self.submit:
+            self.jobname = conf['jobname']
+            self.walltime = conf['walltime']
+            self.n_node = conf['n_node']
+            self.account = conf['account']
+            self.partition = conf['partition']
+            self.qos = conf['qos']
+            self.memory = conf['memory']
+            self.check_freq = conf['check_freq']
         self._setcmds()
 
     def _setcmds(self):
@@ -87,7 +98,11 @@ class setup_job(object):
         elif self.platform == 'orion':
             self.execcmd = which('srun')
         elif self.platform == 'derecho':
-            self.execcmd = which('mpiexec')+' -n %s -ppn %s' % (self.n_task, str(int(self.n_task / self.n_node)))
+            if self.submit:
+                self.execcmd = which('mpiexec')+' -n %s -ppn %s' % (self.n_task, str(int(self.n_task / self.n_node)))
+            else:
+                self.execcmd = which('mpiexec')
+                
      
     def create_job(self, **args):
         with open(args['in_jobhdr'], 'r') as file:
@@ -116,7 +131,7 @@ class setup_job(object):
     def check(self, jobid):
         output = subprocess.run([self.search_cmd, self.search_arg, jobid], check=False, capture_output=True)
         stdout = output.stdout.decode('utf-8')
-        if jobid in stdout:
+        if output.returncode == 0:
             status = 0
             print(stdout, flush=1)
         else:
