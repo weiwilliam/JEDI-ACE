@@ -100,8 +100,9 @@ if( ENABLE_OBS )
 
     # ufo
     ecbuild_bundle( PROJECT ufo-data GIT "https://github.com/jcsda-internal/ufo-data.git" BRANCH develop UPDATE )
-    ecbuild_bundle( PROJECT ufo      GIT "https://github.com/PACE-DAAQ/ufo.git"   BRANCH feature/mpas_g2g_updated UPDATE )
-    #ecbuild_bundle( PROJECT ufo      GIT "https://github.com/jcsda/ufo.git"      BRANCH develop UPDATE )
+    ecbuild_bundle( PROJECT ufo      GIT "https://github.com/jcsda/ufo.git"      BRANCH develop UPDATE )
+    # Use UFO fork under PACE-DAAQ for MPAS-GOCART2G
+    # ecbuild_bundle( PROJECT ufo      GIT "https://github.com/PACE-DAAQ/ufo.git"   BRANCH feature/mpas-gocart2g-updated UPDATE )
 endif()
 
 ecbuild_bundle( PROJECT vind GIT "https://github.com/benjaminmenetrier/vind.git"  BRANCH develop UPDATE)
