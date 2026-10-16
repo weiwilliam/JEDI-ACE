@@ -14,7 +14,7 @@ else
 fi
 
 module load jedi-fv3-env
-module load ewok-env
+#module load ewok-env
 module load metplus
 module load nco
 

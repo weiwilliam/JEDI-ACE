@@ -19,6 +19,8 @@ geometry:
         latitude2  : 60.0
         radius: 6370000
   levels are top down: false
+  io:
+    latitude south to north: false
 
   groups:
   - variables:
