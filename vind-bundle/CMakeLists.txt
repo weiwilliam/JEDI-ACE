@@ -76,7 +76,7 @@ endif()
 #ecbuild_bundle( PROJECT atlas    GIT "https://github.com/ecmwf/atlas.git" TAG 0.31.1 )
 
 ecbuild_bundle( PROJECT oops     GIT "https://github.com/jcsda/oops.git"        BRANCH develop UPDATE )
-ecbuild_bundle( PROJECT vader    GIT "https://github.com/weiwilliam/vader.git"  BRANCH develop UPDATE )
+ecbuild_bundle( PROJECT vader    GIT "https://github.com/jcsda/vader.git"  BRANCH develop UPDATE )
 
 if( ENABLE_SABER )
     # gsi
